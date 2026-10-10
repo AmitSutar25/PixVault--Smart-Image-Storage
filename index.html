@@ -1,0 +1,750 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>PixVault | Smart Image Storage</title>
+
+<style>
+:root {
+    --primary: #6254e8;
+    --primary-dark: #4e40c9;
+    --green: #15966f;
+    --green-dark: #107856;
+    --text: #20243a;
+    --muted: #777d91;
+    --border: #e8eaf2;
+    --bg: #f6f7fc;
+    --white: #ffffff;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: "Segoe UI", Arial, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+}
+
+/* Navigation */
+
+.navbar {
+    background: var(--white);
+    border-bottom: 1px solid var(--border);
+}
+
+.nav-inner {
+    max-width: 1160px;
+    min-height: 76px;
+    padding: 12px 24px;
+    margin: auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+.brand {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 23px;
+    font-weight: 800;
+    letter-spacing: -0.7px;
+}
+
+.brand-icon {
+    width: 44px;
+    height: 44px;
+    display: grid;
+    place-items: center;
+    border-radius: 14px;
+    color: white;
+    font-size: 25px;
+    background: linear-gradient(135deg, #897bff, #5141d0);
+    box-shadow: 0 5px 14px #6254e833;
+}
+
+.brand-name span {
+    color: var(--primary);
+}
+
+.status {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 9px 13px;
+    border-radius: 30px;
+    background: #eaf8f1;
+    color: #267b5c;
+    font-size: 12px;
+    font-weight: 700;
+}
+
+.status-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #28b77c;
+}
+
+/* Main content */
+
+.container {
+    width: min(1100px, 92%);
+    margin: auto;
+}
+
+.hero {
+    padding: 65px 15px 42px;
+    text-align: center;
+    animation: appear .6s ease both;
+}
+
+.eyebrow {
+    display: inline-block;
+    padding: 8px 13px;
+    border-radius: 30px;
+    background: #ece9ff;
+    color: var(--primary-dark);
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 1.2px;
+    margin-bottom: 20px;
+}
+
+.hero h1 {
+    font-size: clamp(34px, 5vw, 52px);
+    line-height: 1.15;
+    letter-spacing: -1.8px;
+    margin-bottom: 16px;
+}
+
+.hero h1 span {
+    color: var(--primary);
+}
+
+.hero p {
+    max-width: 580px;
+    margin: auto;
+    color: var(--muted);
+    font-size: 15px;
+    line-height: 1.8;
+}
+
+/* Section heading */
+
+.section-heading {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 15px;
+    margin: 0 0 17px;
+}
+
+.section-heading h2 {
+    font-size: 17px;
+}
+
+.section-heading span {
+    color: var(--muted);
+    font-size: 12px;
+}
+
+/* Cards */
+
+.cards {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    align-items: stretch;
+    gap: 24px;
+    padding-bottom: 30px;
+}
+
+.card {
+    min-width: 0;
+    padding: 28px;
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    box-shadow: 0 5px 24px rgba(34, 39, 77, 0.045);
+    display: flex;
+    flex-direction: column;
+    transition: transform .25s ease, box-shadow .25s ease,
+                border-color .25s ease;
+    animation: appear .7s ease both;
+}
+
+.card:nth-child(2) {
+    animation-delay: .12s;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    border-color: #d8d3ff;
+    box-shadow: 0 15px 35px rgba(54, 45, 120, 0.09);
+}
+
+.card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 22px;
+}
+
+.card-icon {
+    width: 56px;
+    height: 56px;
+    display: grid;
+    place-items: center;
+    border-radius: 16px;
+    font-size: 27px;
+}
+
+.upload-icon {
+    background: #eeebff;
+    color: var(--primary);
+}
+
+.search-icon {
+    background: #e5f7ef;
+    color: var(--green);
+}
+
+.tag {
+    padding: 7px 10px;
+    border-radius: 8px;
+    background: #f5f5fa;
+    color: #777d91;
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: .7px;
+}
+
+.card h3 {
+    font-size: 23px;
+    letter-spacing: -.5px;
+    margin-bottom: 10px;
+}
+
+.description {
+    min-height: 48px;
+    color: var(--muted);
+    font-size: 14px;
+    line-height: 1.7;
+    margin-bottom: 22px;
+}
+
+/* Forms */
+
+.card form {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+label {
+    display: block;
+    font-size: 13px;
+    font-weight: 700;
+    margin: 0 0 9px;
+}
+
+input[type="text"],
+input[type="file"] {
+    width: 100%;
+    min-width: 0;
+    min-height: 48px;
+    border: 1px solid #e0e3ed;
+    border-radius: 10px;
+    background: #fafbfe;
+    padding: 12px 13px;
+    color: var(--text);
+    font-family: inherit;
+    font-size: 13px;
+    outline: none;
+    transition: border-color .2s, box-shadow .2s;
+}
+
+input[type="text"]::placeholder {
+    color: #a1a5b6;
+}
+
+input[type="text"]:focus,
+input[type="file"]:focus {
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px #6254e81a;
+}
+
+input[type="file"] {
+    padding: 8px;
+}
+
+input[type="file"]::file-selector-button {
+    padding: 8px 10px;
+    border: none;
+    border-radius: 7px;
+    background: #ece9ff;
+    color: var(--primary-dark);
+    font-size: 12px;
+    font-weight: 700;
+    cursor: pointer;
+    margin-right: 8px;
+}
+
+/* Preview */
+
+.preview {
+    display: none;
+    margin-top: 15px;
+    padding: 12px;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    background: #fafbff;
+}
+
+.preview img {
+    display: block;
+    width: 100%;
+    max-height: 180px;
+    object-fit: contain;
+    border-radius: 8px;
+}
+
+.preview p {
+    margin-top: 8px;
+    color: var(--muted);
+    font-size: 12px;
+    overflow-wrap: anywhere;
+}
+
+/* Aligned buttons and help text */
+
+.form-bottom {
+    margin-top: auto;
+    padding-top: 24px;
+}
+
+.action-btn {
+    width: 100%;
+    min-height: 49px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 9px;
+    padding: 13px 15px;
+    border: none;
+    border-radius: 10px;
+    color: white;
+    background: var(--primary);
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background .2s, transform .2s;
+}
+
+.action-btn:hover {
+    background: var(--primary-dark);
+    transform: translateY(-1px);
+}
+
+.action-btn:disabled {
+    opacity: .7;
+    cursor: wait;
+    transform: none;
+}
+
+.search-btn {
+    background: var(--green);
+}
+
+.search-btn:hover {
+    background: var(--green-dark);
+}
+
+.help-text {
+    min-height: 36px;
+    margin-top: 12px;
+    color: var(--muted);
+    font-size: 12px;
+    line-height: 1.6;
+}
+
+/* Information strip */
+
+.features {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 15px;
+    padding: 5px 0 35px;
+}
+
+.feature {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    padding: 18px 12px;
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 13px;
+}
+
+.feature-icon {
+    font-size: 23px;
+}
+
+.feature strong {
+    display: block;
+    font-size: 13px;
+}
+
+.feature small {
+    display: block;
+    margin-top: 5px;
+    color: var(--muted);
+    font-size: 11px;
+}
+
+/* Footer */
+
+footer {
+    padding: 23px 15px;
+    border-top: 1px solid var(--border);
+    background: white;
+    text-align: center;
+    color: var(--muted);
+    font-size: 12px;
+    line-height: 1.8;
+}
+
+@keyframes appear {
+    from {
+        opacity: 0;
+        transform: translateY(14px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Mobile layout */
+
+@media (max-width: 760px) {
+    .nav-inner {
+        min-height: 68px;
+        padding: 10px 5%;
+    }
+
+    .brand {
+        font-size: 20px;
+    }
+
+    .brand-icon {
+        width: 39px;
+        height: 39px;
+    }
+
+    .container {
+        width: 92%;
+    }
+
+    .hero {
+        padding: 45px 5px 35px;
+    }
+
+    .hero h1 {
+        letter-spacing: -1px;
+    }
+
+    .cards {
+        grid-template-columns: 1fr;
+        gap: 18px;
+    }
+
+    .card {
+        padding: 23px;
+    }
+
+    .description {
+        min-height: 0;
+    }
+
+    .features {
+        grid-template-columns: 1fr;
+    }
+
+    .feature {
+        justify-content: flex-start;
+        padding-left: 24px;
+    }
+}
+
+@media (max-width: 380px) {
+    .brand {
+        font-size: 18px;
+    }
+
+    .status {
+        padding: 8px;
+        font-size: 10px;
+    }
+
+    .card {
+        padding: 19px;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+        animation-duration: .01ms !important;
+        transition-duration: .01ms !important;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<!-- Navigation -->
+<nav class="navbar">
+    <div class="nav-inner">
+        <div class="brand">
+            <div class="brand-icon">✦</div>
+            <div class="brand-name">Pix<span>Vault</span></div>
+        </div>
+
+        <div class="status">
+            <span class="status-dot"></span>
+            Image Portal
+        </div>
+    </div>
+</nav>
+
+<main class="container">
+
+    <!-- Hero section -->
+    <section class="hero">
+        <div class="eyebrow">SMART IMAGE STORAGE</div>
+
+        <h1>Your images,<br><span>always within reach.</span></h1>
+
+        <p>
+            Upload your images securely to your cloud storage.
+            Find previously uploaded images whenever you need them.
+        </p>
+    </section>
+
+    <div class="section-heading">
+        <h2>What would you like to do?</h2>
+        <span>Choose an option below</span>
+    </div>
+
+    <section class="cards">
+
+        <!-- UPLOAD IMAGE -->
+        <article class="card">
+
+            <div class="card-header">
+                <div class="card-icon upload-icon">↑</div>
+                <span class="tag">UPLOAD</span>
+            </div>
+
+            <h3>Upload an image</h3>
+
+            <p class="description">
+                Give your image a memorable name, select a file,
+                and save it to your image storage.
+            </p>
+
+            <form id="uploadForm"
+                  action="upload.php"
+                  method="POST"
+                  enctype="multipart/form-data">
+
+                <label for="name">Image name</label>
+
+                <input
+                    type="text"
+                    id="name"
+                    name="name"
+                    placeholder="e.g. My Vacation"
+                    maxlength="200"
+                    required
+                >
+
+                <label for="anyfile" style="margin-top: 20px;">
+                    Select image file
+                </label>
+
+                <input
+                    type="file"
+                    id="anyfile"
+                    name="anyfile"
+                    accept="image/*"
+                    required
+                >
+
+                <div class="preview" id="preview">
+                    <img id="previewImage" alt="Selected image preview">
+                    <p id="fileName"></p>
+                </div>
+
+                <div class="form-bottom">
+                    <button class="action-btn"
+                            type="submit"
+                            id="uploadButton">
+                        <span>↑</span> Upload Image
+                    </button>
+
+                    <p class="help-text">
+                        Select an image and give it a name you can remember.
+                    </p>
+                </div>
+
+            </form>
+        </article>
+
+        <!-- FIND IMAGE -->
+        <article class="card">
+
+            <div class="card-header">
+                <div class="card-icon search-icon">⌕</div>
+                <span class="tag">RETRIEVE</span>
+            </div>
+
+            <h3>Find your image</h3>
+
+            <p class="description">
+                Looking for an image you uploaded earlier?
+                Search for it using the name you saved.
+            </p>
+
+            <form id="searchForm"
+                  action="get_image.php"
+                  method="GET">
+
+                <label for="searchName">Image name</label>
+
+                <input
+                    type="text"
+                    id="searchName"
+                    name="name"
+                    placeholder="Enter your saved image name"
+                    maxlength="200"
+                    required
+                >
+
+                <div class="form-bottom">
+                    <button class="action-btn search-btn" type="submit">
+                        <span>⌕</span> Find My Image
+                    </button>
+
+                    <p class="help-text">
+                        Use the same name that you entered when uploading the image.
+                    </p>
+                </div>
+
+            </form>
+        </article>
+
+    </section>
+
+    <!-- Features -->
+    <section class="features">
+
+        <div class="feature">
+            <span class="feature-icon">☁️</span>
+            <div>
+                <strong>Cloud image storage</strong>
+                <small>Amazon S3</small>
+            </div>
+        </div>
+
+        <div class="feature">
+            <span class="feature-icon">🗄️</span>
+            <div>
+                <strong>Image information</strong>
+                <small>Amazon RDS MySQL</small>
+            </div>
+        </div>
+
+        <div class="feature">
+            <span class="feature-icon">🔎</span>
+            <div>
+                <strong>Simple image search</strong>
+                <small>Find images by name</small>
+            </div>
+        </div>
+
+    </section>
+
+</main>
+
+<footer>
+    PixVault Image Portal<br>
+    Powered by HTML, PHP, Amazon S3 and Amazon RDS
+</footer>
+
+<script>
+const fileInput = document.getElementById("anyfile");
+const preview = document.getElementById("preview");
+const previewImage = document.getElementById("previewImage");
+const fileName = document.getElementById("fileName");
+const uploadForm = document.getElementById("uploadForm");
+const uploadButton = document.getElementById("uploadButton");
+
+let previewUrl = null;
+
+fileInput.addEventListener("change", function () {
+    const file = this.files[0];
+
+    if (previewUrl) {
+        URL.revokeObjectURL(previewUrl);
+        previewUrl = null;
+    }
+
+    if (!file) {
+        preview.style.display = "none";
+        previewImage.removeAttribute("src");
+        return;
+    }
+
+    if (!file.type.startsWith("image/")) {
+        alert("Please select a valid image file.");
+        this.value = "";
+        preview.style.display = "none";
+        return;
+    }
+
+    previewUrl = URL.createObjectURL(file);
+    previewImage.src = previewUrl;
+    fileName.textContent = file.name;
+    preview.style.display = "block";
+});
+
+uploadForm.addEventListener("submit", function () {
+    uploadButton.disabled = true;
+    uploadButton.textContent = "Uploading...";
+});
+
+document.getElementById("searchForm").addEventListener("submit", function (event) {
+    const name = document.getElementById("searchName").value.trim();
+
+    if (!name) {
+        event.preventDefault();
+        alert("Please enter an image name.");
+    }
+});
+</script>
+
+</body>
+</html>
