@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Get Your Image</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 0;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        .container {
+            background: white;
+            width: 100%;
+            max-width: 420px;
+            padding: 30px;
+            border-radius: 18px;
+            box-shadow: 0 10px 30px #0003;
+            text-align: center;
+            box-sizing: border-box;
+        }
+
+        h2 {
+            color: #28345a;
+        }
+
+        input[type="text"] {
+            width: 100%;
+            padding: 13px;
+            margin: 15px 0;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            box-sizing: border-box;
+        }
+
+        button {
+            width: 100%;
+            padding: 13px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            opacity: 0.9;
+        }
+
+        a {
+            display: inline-block;
+            margin-top: 20px;
+            color: #5145cd;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h2>🖼️ Get Your Image</h2>
+        <p>Enter the name used when uploading your image.</p>
+
+        <form action="get_image.php" method="post">
+            <input
+                type="text"
+                name="name"
+                placeholder="Enter your name"
+                required
+            >
+
+            <button type="submit">Get Image</button>
+        </form>
+
+        <a href="index.html">Upload a New Image</a>
+    </div>
+</body>
+</html>
