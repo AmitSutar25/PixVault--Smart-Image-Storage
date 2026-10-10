@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Upload Successful</title>
+
+<style>
+    * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+    }
+
+    body {
+        min-height: 100vh;
+        padding: 20px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-family: Arial, Helvetica, sans-serif;
+        background: linear-gradient(135deg, #667eea, #764ba2);
+    }
+
+    .success-card {
+        width: 100%;
+        max-width: 430px;
+        background: white;
+        padding: 40px 30px;
+        text-align: center;
+        border-radius: 22px;
+        box-shadow: 0 20px 55px rgba(0, 0, 0, 0.22);
+        animation: appear 0.5s ease;
+    }
+
+    .checkmark {
+        width: 85px;
+        height: 85px;
+        margin: 0 auto 25px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: #dcfce7;
+        color: #16a34a;
+        border-radius: 50%;
+        font-size: 45px;
+    }
+
+    h1 {
+        color: #1f2937;
+        font-size: 27px;
+        margin-bottom: 15px;
+    }
+
+    p {
+        color: #6b7280;
+        font-size: 15px;
+        line-height: 1.7;
+        margin-bottom: 28px;
+    }
+
+    a {
+        display: inline-block;
+        width: 100%;
+        padding: 14px;
+        border-radius: 10px;
+        background: linear-gradient(135deg, #667eea, #764ba2);
+        color: white;
+        text-decoration: none;
+        font-size: 16px;
+        font-weight: bold;
+        transition: transform 0.2s;
+    }
+
+    a:hover {
+        transform: translateY(-2px);
+    }
+
+    @keyframes appear {
+        from {
+            opacity: 0;
+            transform: translateY(15px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+</style>
+</head>
+
+<body>
+
+<div class="success-card">
+    <div class="checkmark">✓</div>
+
+    <h1>Image Uploaded Successfully!</h1>
+
+    <p>
+        Your image has been uploaded successfully.
+        Thank you for using our Image Upload Portal.
+    </p>
+
+    <a href="index.html">Upload Another Image</a>
+</div>
+
+</body>
+</html>
