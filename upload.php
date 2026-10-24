@@ -57,7 +57,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     "uploads/" . $filename
                 )) {
 
-                    $bucket = 'mybucket910266';
+                    $bucket = '';
                     $file_Path = __DIR__ . '/uploads/' . $filename;
                     $key = basename($file_Path);
 
@@ -73,10 +73,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
                         $name = $_POST["name"];
 
-                        $servername = "mydatabase.crc8o6222fmv.sa-east-1.rds.amazonaws.com";
-                        $username = "admin";
-                        $password = "Amit24680";
-                        $dbname = "myappdb";
+                        $servername = "";
+                        $username = "";
+                        $password = "";
+                        $dbname = "";
 
                         // Create connection
                         $conn = mysqli_connect(
